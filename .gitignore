@@ -1,7 +1,7 @@
 .gradle
 build
 .idea/
-.bin
+bin
 .project
 .settings/
 .classpath

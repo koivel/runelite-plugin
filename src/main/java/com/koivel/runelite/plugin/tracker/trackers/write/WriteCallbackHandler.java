@@ -33,7 +33,7 @@ public class WriteCallbackHandler implements Callback {
         log.info("Got write response {} on attempt {}", response.code(), retries);
         retries++;
 
-        try (response) {
+        try  {
             int responseCode = response.code();
 
             if (responseCode != 200) {
@@ -44,6 +44,8 @@ public class WriteCallbackHandler implements Callback {
                     Thread.sleep(retries * 1000L);
                 }
             }
+        } finally {
+            response.close();
         }
     }
 }

@@ -10,7 +10,7 @@ repositories {
 	mavenCentral()
 }
 
-def runeLiteVersion = '1.8.18.4'
+def runeLiteVersion = '1.8.18.5'
 
 dependencies {
 	compileOnly group: 'net.runelite', name:'client', version: runeLiteVersion
@@ -25,7 +25,8 @@ dependencies {
 
 group = 'koivel-runelite-plugin'
 version = '1.0.0'
-sourceCompatibility = "1.9"
+sourceCompatibility = '1.8'
+targetCompatibility = "1.8"
 
 tasks.withType(JavaCompile) {
 	options.encoding = 'UTF-8'
@@ -41,4 +42,4 @@ jar {
 		)
 	}
 }
-targetCompatibility = JavaVersion.VERSION_1_9
+
