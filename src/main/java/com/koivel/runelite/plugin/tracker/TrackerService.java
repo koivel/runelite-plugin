@@ -6,6 +6,7 @@ import net.runelite.api.Client;
 import net.runelite.client.eventbus.EventBus;
 import net.runelite.client.game.LootManager;
 
+import java.util.Arrays;
 import java.util.List;
 
 import com.koivel.runelite.plugin.KoivelConfig;
@@ -21,10 +22,8 @@ public class TrackerService {
     private EventBus eventBus;
     private KoivelConfig config;
 
-    private List<Tracker> trackers = List.of(
-            new SkillTracker(),
-            new WriteTracker()
-    );
+    private List<Tracker> trackers = Arrays.asList(new SkillTracker(),
+            new WriteTracker());
 
     public TrackerService(Client client, LootManager lootManager, EventBus eventBus, KoivelConfig config) {
         this.config = config;
@@ -37,13 +36,13 @@ public class TrackerService {
         }
     }
 
-    public void start(){
+    public void start() {
         for (Tracker tracker : trackers) {
             tracker.start();
         }
     }
 
-    public void shutdown(){
+    public void shutdown() {
         for (Tracker tracker : trackers) {
             tracker.shutdown();
         }

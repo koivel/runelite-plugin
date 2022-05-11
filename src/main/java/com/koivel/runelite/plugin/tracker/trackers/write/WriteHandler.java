@@ -9,7 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import okhttp3.*;
 
 import java.io.IOException;
-import java.util.List;
+import java.util.Arrays;
 import java.util.function.Supplier;
 
 @Slf4j
@@ -26,7 +26,7 @@ public class WriteHandler {
     }
 
     public void write(KEventSeries eventGroup, WriteCallbackHandler callback) throws IOException {
-        KEventWriteReq reqBody = new KEventWriteReq(List.of(eventGroup));
+        KEventWriteReq reqBody = new KEventWriteReq(Arrays.asList(eventGroup));
         RequestBody bodyJson = RequestBody.create(
                 json,
                 gson.toJson(reqBody));
