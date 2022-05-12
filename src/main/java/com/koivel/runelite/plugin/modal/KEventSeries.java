@@ -12,5 +12,6 @@ import lombok.NoArgsConstructor;
 public class KEventSeries {
     private String collectionId;
     private String accountId;
+    private String accountDisplayName;
     private List<KEvent> events;
 }
