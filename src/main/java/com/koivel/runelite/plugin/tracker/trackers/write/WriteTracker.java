@@ -1,5 +1,6 @@
 package com.koivel.runelite.plugin.tracker.trackers.write;
 
+import net.runelite.api.Player;
 import net.runelite.api.events.GameTick;
 import net.runelite.client.eventbus.Subscribe;
 
@@ -24,11 +25,16 @@ public class WriteTracker extends Tracker {
     @Subscribe
     public void onGameTick(GameTick gameTick) {
         long now = System.currentTimeMillis();
-        if (now - lastWriteMs < TimeUnit.MINUTES.toMillis(1)) return;
+        if (now - lastWriteMs < TimeUnit.MINUTES.toMillis(1))
+            return;
 
-        synchronized (DataService.LOCK){
+        synchronized (DataService.LOCK) {
             KEventSeries eventFrameGroup = DataService.getEventFrameGroup();
             eventFrameGroup.setAccountId("" + getClient().getAccountHash());
+
+            Player player = getClient().getLocalPlayer();
+            String playerName = player == null ? null : player.getName();
+            eventFrameGroup.setAccountDisplayName(playerName);
 
             if (eventFrameGroup.getEvents().size() > 0) {
                 try {
