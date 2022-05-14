@@ -30,7 +30,7 @@ public class WriteCallbackHandler implements Callback {
     @SneakyThrows
     @Override
     public void onResponse(Call call, Response response) throws IOException {
-        log.info("Got write response {} on attempt {}", response.code(), retries);
+        log.debug("Got write response {} on attempt {}", response.code(), retries);
         retries++;
 
         try  {

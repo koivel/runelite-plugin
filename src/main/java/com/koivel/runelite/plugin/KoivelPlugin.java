@@ -38,13 +38,13 @@ public class KoivelPlugin extends Plugin {
         DataService.reset();
         trackerService = new TrackerService(client, lootManager, eventBus, config);
         trackerService.start();
-        log.info("Koivel started!");
+        log.debug("Koivel started!");
     }
 
     @Override
     protected void shutDown() throws Exception {
         if (trackerService != null) trackerService.shutdown();
-        log.info("Koivel stopped!");
+        log.debug("Koivel stopped!");
     }
 
     @Provides

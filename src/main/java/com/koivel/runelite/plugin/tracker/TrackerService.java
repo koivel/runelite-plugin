@@ -27,7 +27,7 @@ public class TrackerService {
 
     public TrackerService(Client client, LootManager lootManager, EventBus eventBus, KoivelConfig config) {
         this.config = config;
-        log.info("Starting client with {} and {}", client, eventBus);
+        log.debug("Starting client with {} and {}", client, eventBus);
         this.client = client;
         this.lootManager = lootManager;
         this.eventBus = eventBus;
