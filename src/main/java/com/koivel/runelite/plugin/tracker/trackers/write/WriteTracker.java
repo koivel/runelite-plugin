@@ -15,12 +15,14 @@ public class WriteTracker extends Tracker {
 
     private long lastWriteMs = System.currentTimeMillis();
 
-    private final WriteHandler writeHandler = new WriteHandler(trackerService.getHttpClient(),
-            () -> trackerService.getConfig());
+    private WriteHandler writeHandler;
 
     @Override
     public void start() {
         super.start();
+        this.writeHandler = new WriteHandler(trackerService.getHttpClient(),
+                () -> trackerService.getConfig());
+
     }
 
     @Subscribe
