@@ -1,3 +1,14 @@
 {
     "java.configuration.updateBuildConfiguration": "automatic",
+    "java.configuration.runtimes": [
+        {
+          "name": "JavaSE-1.8",
+          "path": "C:\\Program Files\\Java\\jdk1.8.0_331",
+        },
+        {
+          "name": "JavaSE-18",
+          "path": "C:\\Program Files\\Java\\jdk-18.0.1.1",
+          "default": true
+        },
+      ]
 }

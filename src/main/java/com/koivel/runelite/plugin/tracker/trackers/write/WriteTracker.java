@@ -15,7 +15,8 @@ public class WriteTracker extends Tracker {
 
     private long lastWriteMs = System.currentTimeMillis();
 
-    private final WriteHandler writeHandler = new WriteHandler(() -> trackerService.getConfig());
+    private final WriteHandler writeHandler = new WriteHandler(trackerService.getHttpClient(),
+            () -> trackerService.getConfig());
 
     @Override
     public void start() {

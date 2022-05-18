@@ -11,6 +11,7 @@ import net.runelite.client.eventbus.EventBus;
 import net.runelite.client.game.LootManager;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
+import okhttp3.OkHttpClient;
 
 import javax.inject.Inject;
 
@@ -30,13 +31,16 @@ public class KoivelPlugin extends Plugin {
 
     @Inject
     private KoivelConfig config;
+    
+    @Inject
+    private OkHttpClient httpClient;
 
     private TrackerService trackerService;
 
     @Override
     protected void startUp() throws Exception {
         DataService.reset();
-        trackerService = new TrackerService(client, lootManager, eventBus, config);
+        trackerService = new TrackerService(client, lootManager, eventBus, config, httpClient);
         trackerService.start();
         log.debug("Koivel started!");
     }

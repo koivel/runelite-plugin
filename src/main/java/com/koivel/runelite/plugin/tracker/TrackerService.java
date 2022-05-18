@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
 import net.runelite.client.eventbus.EventBus;
 import net.runelite.client.game.LootManager;
+import okhttp3.OkHttpClient;
 
 import java.util.Arrays;
 import java.util.List;
@@ -21,18 +22,21 @@ public class TrackerService {
     private LootManager lootManager;
     private EventBus eventBus;
     private KoivelConfig config;
+    private OkHttpClient httpClient;
 
     private List<Tracker> trackers = Arrays.asList(new SkillTracker(),
             new WriteTracker());
 
-    public TrackerService(Client client, LootManager lootManager, EventBus eventBus, KoivelConfig config) {
+    public TrackerService(Client client, LootManager lootManager, EventBus eventBus, KoivelConfig config,
+            OkHttpClient httpClient) {
         this.config = config;
         log.debug("Starting client with {} and {}", client, eventBus);
         this.client = client;
         this.lootManager = lootManager;
         this.eventBus = eventBus;
+        this.httpClient = httpClient;
         for (Tracker tracker : trackers) {
-            tracker.setTrackers(this);
+            tracker.setTracketService(this);
         }
     }
 

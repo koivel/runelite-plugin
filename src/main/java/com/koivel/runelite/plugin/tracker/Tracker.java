@@ -22,7 +22,7 @@ public class Tracker {
         return trackerService.getClient().getTickCount();
     }
 
-    public void setTrackers(TrackerService trackerService) {
+    public void setTracketService(TrackerService trackerService) {
         this.trackerService = trackerService;
     }
 }

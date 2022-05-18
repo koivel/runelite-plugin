@@ -6,6 +6,7 @@ import com.koivel.runelite.plugin.modal.KEventSeries;
 import com.koivel.runelite.plugin.modal.KEventWriteReq;
 
 import lombok.extern.slf4j.Slf4j;
+import net.runelite.client.RuneLite;
 import okhttp3.*;
 
 import java.io.IOException;
@@ -16,12 +17,13 @@ import java.util.function.Supplier;
 public class WriteHandler {
 
     private final MediaType json = MediaType.parse("application/json; charset=utf-8");
-    private final OkHttpClient httpClient = new OkHttpClient();
+    private final OkHttpClient httpClient;
     private final Gson gson = new Gson();
 
     private Supplier<KoivelConfig> configSupplier;
 
-    public WriteHandler(Supplier<KoivelConfig> configSupplier) {
+    public WriteHandler(OkHttpClient httpClient, Supplier<KoivelConfig> configSupplier) {
+        this.httpClient = httpClient;
         this.configSupplier = configSupplier;
     }
 
@@ -33,6 +35,7 @@ public class WriteHandler {
 
         Request request = new Request.Builder()
                 .url(getHost() + "/event-api/events/write")
+                .addHeader("User-Agent", RuneLite.USER_AGENT + " (rl-koivel)")
                 .addHeader("Authorization", "Bearer " + configSupplier.get().refreshKey())
                 .post(bodyJson)
                 .build();
