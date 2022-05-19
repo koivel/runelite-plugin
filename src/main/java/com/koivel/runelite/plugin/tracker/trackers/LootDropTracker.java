@@ -39,16 +39,15 @@ public class LootDropTracker extends Tracker {
         for (ItemStack item : event.getItems()) {
             int itemId = ItemUtil.getRealId(item.getId());
             KEvent kEvent = KEvent.builder()
-                    .type("ValueChange")
                     .groupId("loot/received")
-                    .value(item.getQuantity())
-                    .score(0.0 + ItemUtil.getPrice(itemId))
-                    .displayText(getClient().getItemDefinition(itemId).getName())
                     .recordedAtEpochMs(now)
                     .build()
-                    .tag(0, "npc")
-                    .tag(1, event.getNpc().getName())
-                    .tag(2, String.valueOf(itemId));
+                    .tag("type", "npc")
+                    .tag("playerName", event.getNpc().getName())
+                    .tag("itemId", String.valueOf(itemId))
+                    .tag("itemDisplayName", getClient().getItemDefinition(itemId).getName())
+                    .value("value", item.getQuantity())
+                    .value("price", 0.0 + ItemUtil.getPrice(itemId));
             trackEvent(kEvent);
         }
     }
@@ -64,16 +63,15 @@ public class LootDropTracker extends Tracker {
         for (ItemStack item : event.getItems()) {
             int itemId = ItemUtil.getRealId(item.getId());
             KEvent kEvent = KEvent.builder()
-                    .type("ValueChange")
                     .groupId("loot/received")
-                    .value(item.getQuantity())
-                    .score(0.0 + ItemUtil.getPrice(itemId))
-                    .displayText(getClient().getItemDefinition(itemId).getName())
                     .recordedAtEpochMs(now)
                     .build()
-                    .tag(0, "player")
-                    .tag(1, event.getPlayer().getName())
-                    .tag(2, String.valueOf(itemId));
+                    .tag("type", "player")
+                    .tag("playerName", event.getPlayer().getName())
+                    .tag("itemId", String.valueOf(itemId))
+                    .tag("itemDisplayName", getClient().getItemDefinition(itemId).getName())
+                    .value("value", item.getQuantity())
+                    .value("price", 0.0 + ItemUtil.getPrice(itemId));
             trackEvent(kEvent);
         }
     }

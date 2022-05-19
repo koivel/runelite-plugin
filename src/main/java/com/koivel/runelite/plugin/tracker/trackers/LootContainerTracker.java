@@ -80,17 +80,15 @@ public class LootContainerTracker extends Tracker {
         long now = System.currentTimeMillis();
         for (Item item : itemContainer.getItems()) {
             int itemId = ItemUtil.getRealId(item.getId());
-
             KEvent kEvent = KEvent.builder()
-                    .type("ValueChange")
                     .groupId("loot/received")
-                    .value(item.getQuantity())
-                    .score(0.0 + ItemUtil.getPrice(itemId))
-                    .displayText(getClient().getItemDefinition(itemId).getName())
                     .recordedAtEpochMs(now)
                     .build()
-                    .tag(0, event.toLowerCase(Locale.ROOT))
-                    .tag(1, String.valueOf(itemId));
+                    .tag("type", event.toLowerCase(Locale.ROOT))
+                    .tag("itemId", String.valueOf(itemId))
+                    .tag("itemDisplayName", getClient().getItemDefinition(itemId).getName())
+                    .value("value", item.getQuantity())
+                    .value("price", 0.0 + ItemUtil.getPrice(itemId));
             trackEvent(kEvent);
         }
     }

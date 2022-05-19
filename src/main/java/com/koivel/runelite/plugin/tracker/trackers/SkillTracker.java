@@ -29,12 +29,11 @@ public class SkillTracker extends Tracker {
             if (currentXp > previousXp) {
                 xpCache.put(skill, currentXp);
                 KEvent event = KEvent.builder()
-                        .type("ValueCurrent")
                         .groupId("total_xp")
-                        .value(currentXp)
                         .recordedAtEpochMs(now)
                         .build()
-                        .tag(0, skill.getName().toLowerCase(Locale.ROOT));
+                        .tag("skillName", skill.getName().toLowerCase(Locale.ROOT))
+                        .value("value", currentXp);
                 this.trackEvent(event);
             }
 
@@ -43,12 +42,11 @@ public class SkillTracker extends Tracker {
             if (currentLevel > previousLevel) {
                 levelCache.put(skill, currentXp);
                 KEvent event = KEvent.builder()
-                        .type("ValueCurrent")
                         .groupId("total_level")
-                        .value(currentLevel)
                         .recordedAtEpochMs(now)
                         .build()
-                        .tag(0, skill.getName().toLowerCase(Locale.ROOT));
+                        .tag("skillName", skill.getName().toLowerCase(Locale.ROOT))
+                        .value("value", currentLevel);
                 this.trackEvent(event);
             }
         }
