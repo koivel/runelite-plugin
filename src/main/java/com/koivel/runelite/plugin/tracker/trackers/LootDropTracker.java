@@ -42,12 +42,12 @@ public class LootDropTracker extends Tracker {
                     .groupId("loot/received")
                     .recordedAtEpochMs(now)
                     .build()
-                    .tag("type", "npc")
-                    .tag("playerName", event.getNpc().getName())
+                    .tag("sourceType", "npc")
+                    .tag("sourceName", event.getNpc().getName())
                     .tag("itemId", String.valueOf(itemId))
                     .tag("itemDisplayName", getClient().getItemDefinition(itemId).getName())
-                    .value("value", item.getQuantity())
-                    .value("price", 0.0 + ItemUtil.getPrice(itemId));
+                    .value("itemPrice", 0.0 + ItemUtil.getPrice(itemId))
+                    .value("value", item.getQuantity());
             trackEvent(kEvent);
         }
     }
@@ -66,12 +66,12 @@ public class LootDropTracker extends Tracker {
                     .groupId("loot/received")
                     .recordedAtEpochMs(now)
                     .build()
-                    .tag("type", "player")
-                    .tag("playerName", event.getPlayer().getName())
+                    .tag("sourceType", "player")
+                    .tag("sourceName", event.getPlayer().getName())
                     .tag("itemId", String.valueOf(itemId))
                     .tag("itemDisplayName", getClient().getItemDefinition(itemId).getName())
-                    .value("value", item.getQuantity())
-                    .value("price", 0.0 + ItemUtil.getPrice(itemId));
+                    .value("itemPrice", 0.0 + ItemUtil.getPrice(itemId))
+                    .value("value", item.getQuantity());
             trackEvent(kEvent);
         }
     }
