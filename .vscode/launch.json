@@ -5,7 +5,8 @@
         "name": "Launch Java Program",
         "request": "launch",
         "mainClass": "com.koivel.runelite.plugin.KoivelPluginTest",
-        "vmArgs": ["-ea"]
+        "vmArgs": ["-ea"],
+        "args": "--debug"
     }
     ]
 }

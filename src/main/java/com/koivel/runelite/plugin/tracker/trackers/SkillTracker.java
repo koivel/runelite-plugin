@@ -26,7 +26,7 @@ public class SkillTracker extends Tracker {
         for (Skill skill : Skill.values()) {
             int currentXp = getClient().getSkillExperience(skill);
             int previousXp = xpCache.getOrDefault(skill, 0);
-            if (currentXp > previousXp) {
+            if (currentXp > 0 && currentXp > previousXp) {
                 xpCache.put(skill, currentXp);
                 KEvent event = KEvent.builder()
                         .groupId("total_xp")
@@ -39,7 +39,7 @@ public class SkillTracker extends Tracker {
 
             int currentLevel = getClient().getRealSkillLevel(skill);
             int previousLevel = levelCache.getOrDefault(skill, skill == Skill.HITPOINTS ? 10 : 1);
-            if (currentLevel > previousLevel) {
+            if (currentLevel > 0 && currentLevel > previousLevel) {
                 levelCache.put(skill, currentXp);
                 KEvent event = KEvent.builder()
                         .groupId("total_level")
