@@ -24,7 +24,8 @@ public class TrackerService {
     private KoivelConfig config;
     private OkHttpClient httpClient;
 
-    private List<Tracker> trackers = Arrays.asList(new SkillTracker(),
+    private List<Tracker> trackers = Arrays.asList(new SkillTracker(), new LootContainerTracker(),
+            new LootDropTracker(),
             new WriteTracker());
 
     public TrackerService(Client client, LootManager lootManager, EventBus eventBus, KoivelConfig config,

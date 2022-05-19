@@ -14,7 +14,7 @@ import com.koivel.runelite.plugin.tracker.Tracker;
 import com.koivel.runelite.plugin.util.ItemUtil;
 import com.koivel.runelite.plugin.util.RegionUtil;
 
-public class LootTracker extends Tracker {
+public class LootDropTracker extends Tracker {
 
     private static final Set<Integer> SOUL_WARS_REGIONS = new HashSet<>(Arrays.asList(8493, 8749, 9005));
     private static final Set<Integer> LAST_MAN_STANDING_REGIONS = new HashSet<>(Arrays.asList(13658,
@@ -40,15 +40,15 @@ public class LootTracker extends Tracker {
             int itemId = ItemUtil.getRealId(item.getId());
             KEvent kEvent = KEvent.builder()
                     .type("ValueChange")
-                    .groupId("loot/npc/received")
+                    .groupId("loot/received")
                     .value(item.getQuantity())
                     .score(0.0 + ItemUtil.getPrice(itemId))
                     .displayText(getClient().getItemDefinition(itemId).getName())
                     .recordedAtEpochMs(now)
                     .build()
-                    .tag(0, event.getNpc().getName())
-                    .tag(1, String.valueOf(itemId));
-
+                    .tag(0, "npc")
+                    .tag(1, event.getNpc().getName())
+                    .tag(2, String.valueOf(itemId));
             trackEvent(kEvent);
         }
     }
@@ -65,15 +65,15 @@ public class LootTracker extends Tracker {
             int itemId = ItemUtil.getRealId(item.getId());
             KEvent kEvent = KEvent.builder()
                     .type("ValueChange")
-                    .groupId("loot/player/received")
+                    .groupId("loot/received")
                     .value(item.getQuantity())
                     .score(0.0 + ItemUtil.getPrice(itemId))
                     .displayText(getClient().getItemDefinition(itemId).getName())
                     .recordedAtEpochMs(now)
                     .build()
-                    .tag(0, event.getPlayer().getName())
-                    .tag(1, String.valueOf(itemId));
-
+                    .tag(0, "player")
+                    .tag(1, event.getPlayer().getName())
+                    .tag(2, String.valueOf(itemId));
             trackEvent(kEvent);
         }
     }
