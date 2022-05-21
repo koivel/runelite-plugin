@@ -46,7 +46,7 @@ public class LootDropTracker extends Tracker {
                     .tag("sourceName", event.getNpc().getName())
                     .tag("itemId", String.valueOf(itemId))
                     .tag("itemDisplayName", getClient().getItemDefinition(itemId).getName())
-                    .value("itemPrice", 0.0 + ItemUtil.getPrice(itemId))
+                    .value("itemPrice", ItemUtil.getPrice(itemId))
                     .value("value", item.getQuantity());
             trackEvent(kEvent);
         }
@@ -70,7 +70,7 @@ public class LootDropTracker extends Tracker {
                     .tag("sourceName", event.getPlayer().getName())
                     .tag("itemId", String.valueOf(itemId))
                     .tag("itemDisplayName", getClient().getItemDefinition(itemId).getName())
-                    .value("itemPrice", 0.0 + ItemUtil.getPrice(itemId))
+                    .value("itemPrice", ItemUtil.getPrice(itemId))
                     .value("value", item.getQuantity());
             trackEvent(kEvent);
         }

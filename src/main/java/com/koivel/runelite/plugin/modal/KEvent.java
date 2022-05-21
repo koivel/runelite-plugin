@@ -14,7 +14,7 @@ public class KEvent {
     private String groupId;
 
     private Map<String, String> tags;
-    private Map<String, Double> values;
+    private Map<String, Number> values;
 
     private Long recordedAtEpochMs;
     private KEventLocation location;

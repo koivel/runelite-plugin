@@ -27,7 +27,8 @@ public class Tracker {
 
     protected void trackEvent(KEvent event) {
         LocationUtil.injectLocation(getClient(), event);
-        DataService.addFrame(event);
+        DataService.addEvent(String.valueOf(getClient().getAccountHash()), getClient().getLocalPlayer().getName(),
+                event);
     }
 
     public void setTracketService(TrackerService trackerService) {

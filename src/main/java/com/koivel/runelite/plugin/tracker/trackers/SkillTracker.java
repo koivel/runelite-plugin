@@ -24,6 +24,10 @@ public class SkillTracker extends Tracker {
     private void executeSkillCheck() {
         long now = System.currentTimeMillis();
         for (Skill skill : Skill.values()) {
+            if (skill == Skill.OVERALL) {
+                continue;
+            }
+
             int currentXp = getClient().getSkillExperience(skill);
             int previousXp = xpCache.getOrDefault(skill, 0);
             if (currentXp > 0 && currentXp > previousXp) {

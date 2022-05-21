@@ -1,16 +1,19 @@
 package com.koivel.runelite.plugin.tracker.trackers.write;
 
-import net.runelite.api.Player;
 import net.runelite.api.events.GameTick;
 import net.runelite.client.eventbus.Subscribe;
 
 import java.io.IOException;
+import java.util.Collection;
 import java.util.concurrent.TimeUnit;
 
 import com.koivel.runelite.plugin.modal.KEventSeries;
 import com.koivel.runelite.plugin.tracker.DataService;
 import com.koivel.runelite.plugin.tracker.Tracker;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class WriteTracker extends Tracker {
 
     private long lastWriteMs = System.currentTimeMillis();
@@ -32,18 +35,15 @@ public class WriteTracker extends Tracker {
             return;
 
         synchronized (DataService.LOCK) {
-            KEventSeries eventFrameGroup = DataService.getEventFrameGroup();
-            eventFrameGroup.setAccountId("" + getClient().getAccountHash());
-
-            Player player = getClient().getLocalPlayer();
-            String playerName = player == null ? null : player.getName();
-            eventFrameGroup.setAccountDisplayName(playerName);
-
-            if (eventFrameGroup.getEvents().size() > 0) {
-                try {
-                    writeHandler.write(eventFrameGroup, new WriteCallbackHandler(writeHandler, eventFrameGroup));
-                } catch (IOException e) {
-                    e.printStackTrace();
+            Collection<KEventSeries> seriesByAccount = DataService.getSeriesByAccount();
+            for (KEventSeries series : seriesByAccount) {
+                if (series.getEvents().size() > 0) {
+                    try {
+                        writeHandler.write(series, new WriteCallbackHandler(writeHandler, series));
+                        log.debug("wrote {} events", series.getEvents().size());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
 

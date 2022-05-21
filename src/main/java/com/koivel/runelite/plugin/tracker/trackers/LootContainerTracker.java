@@ -88,7 +88,7 @@ public class LootContainerTracker extends Tracker {
                     .tag("sourceName", event.toLowerCase(Locale.ROOT))
                     .tag("itemId", String.valueOf(itemId))
                     .tag("itemDisplayName", getClient().getItemDefinition(itemId).getName())
-                    .value("itemPrice", 0.0 + ItemUtil.getPrice(itemId))
+                    .value("itemPrice", ItemUtil.getPrice(itemId))
                     .value("value", item.getQuantity());
             trackEvent(kEvent);
         }
