@@ -18,7 +18,9 @@ There are multiple OSRS dashboards to try out and experiment with.
 
 - That's it Koivel will start tracking your XP gains, loot, drops, and other stats updating the dashboards giving you access to your data.
 
+# How does the server work?
+The server is open source. Check it out at https://github.com/koivel/air
 
-# How do I get help or get involved?
-We have a Discord you can join to contact us or ask questions!
+# How do I get help, get involved, or request features?
+We have a Discord you can join to contact us, provide feedback/feature requests, or ask questions!
 https://discord.gg/SgcfNBJGpM
