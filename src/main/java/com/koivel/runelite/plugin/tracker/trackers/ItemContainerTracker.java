@@ -3,9 +3,11 @@ package com.koivel.runelite.plugin.tracker.trackers;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.Map.Entry;
+import java.util.stream.Collectors;
 
 import com.koivel.runelite.plugin.modal.KEvent;
 import com.koivel.runelite.plugin.tracker.Tracker;
@@ -23,16 +25,24 @@ import net.runelite.client.eventbus.Subscribe;
 @Slf4j
 public class ItemContainerTracker extends Tracker {
 
-    private Set<Integer> trackedContainerIds = new HashSet<Integer>(
-            Arrays.asList(InventoryID.BANK.getId(), InventoryID.INVENTORY.getId(), InventoryID.EQUIPMENT.getId()));
+    private Map<Integer, String> trackedInventories = new HashMap<Integer, String>();
+
     private Map<Integer, ContainerCache> containerCache = new HashMap<Integer, ContainerCache>();
 
     private int gameTick = 0;
     private long gameTickBasedNow = 0;
 
+    @Override
+    public void start() {
+        super.start();
+        this.trackedInventories.put(InventoryID.BANK.getId(), "Bank");
+        this.trackedInventories.put(InventoryID.INVENTORY.getId(), "Inventory");
+        this.trackedInventories.put(InventoryID.EQUIPMENT.getId(), "Equipment");
+    }
+
     @Subscribe
     public void onItemContainerChanged(ItemContainerChanged event) {
-        if (trackedContainerIds.contains(event.getContainerId())) {
+        if (trackedInventories.containsKey(event.getContainerId())) {
             int currentTick = getClient().getTickCount();
             if (currentTick != gameTick) {
                 gameTick = currentTick;
@@ -93,13 +103,16 @@ public class ItemContainerTracker extends Tracker {
         }
     }
 
-    private void trackItemEvent(int contaienrId, int itemId, int quanitity, long price) {
+    private void trackItemEvent(int containerId, int itemId, int quanitity, long price) {
         KEvent event = KEvent.builder().recordedAtEpochMs(gameTickBasedNow)
                 .groupId("item-container-contents").build()
-                .value("value", quanitity).tag("itemId", String.valueOf(itemId))
-                .tag("containerId", String.valueOf(contaienrId))
+                .tag("itemId", String.valueOf(itemId))
+                .tag("containerId", String.valueOf(containerId))
+                .tag("containerName", this.trackedInventories.get(containerId))
                 .tag("itemDisplayName", getClient().getItemDefinition(itemId).getName())
-                .value("itemPrice", price);
+                .value("value", quanitity)
+                .value("itemPrice", price)
+                .value("totalValue", (long) (quanitity * price));
         trackEvent(event);
     }
 
