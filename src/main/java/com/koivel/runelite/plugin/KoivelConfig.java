@@ -11,7 +11,7 @@ public interface KoivelConfig extends Config {
         return "";
     }
 
-    @ConfigItem(keyName = "disabledTrackers", name = "Disabled Trackers", description = "Comma separated list of trackers to disable.", position = 1)
+    @ConfigItem(keyName = "disabledTrackers", name = "Disabled Trackers", description = "Comma separated list of trackers to disable. Restart plugin after changing.", position = 1)
     default String disabledTrackers() {
         return "";
     }

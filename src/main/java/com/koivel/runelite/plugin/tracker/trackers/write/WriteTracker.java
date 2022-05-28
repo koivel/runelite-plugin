@@ -53,4 +53,7 @@ public class WriteTracker extends Tracker {
         lastWriteMs = now;
     }
 
+    public String getName() {
+        return "write-tracker";
+    }
 }
