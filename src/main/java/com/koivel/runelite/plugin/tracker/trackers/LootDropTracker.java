@@ -75,4 +75,8 @@ public class LootDropTracker extends Tracker {
             trackEvent(kEvent);
         }
     }
+
+    public String getName() {
+        return "loot-tracker";
+    }
 }

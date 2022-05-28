@@ -43,4 +43,8 @@ public class KcTracker extends Tracker {
     public void onNpcDespawned(NpcDespawned npcDespawned) {
         taggedNpcs.remove(npcDespawned.getNpc());
     }
+
+    public String getName() {
+        return "kc-tracker";
+    }
 }

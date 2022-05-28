@@ -3,9 +3,11 @@ package com.koivel.runelite.plugin.tracker;
 import com.koivel.runelite.plugin.modal.KEvent;
 import com.koivel.runelite.plugin.util.LocationUtil;
 
+import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
 
-public class Tracker {
+@Slf4j
+public abstract class Tracker {
 
     protected TrackerService trackerService;
 
@@ -25,7 +27,10 @@ public class Tracker {
         return trackerService.getClient().getTickCount();
     }
 
+    public abstract String getName();
+
     protected void trackEvent(KEvent event) {
+        log.debug("tracking event : {}", event);
         LocationUtil.injectLocation(getClient(), event);
         DataService.addEvent(String.valueOf(getClient().getAccountHash()), getClient().getLocalPlayer().getName(),
                 event);

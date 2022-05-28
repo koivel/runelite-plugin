@@ -75,4 +75,8 @@ public class SkillTracker extends Tracker {
         this.cacheAccountHash = accountHash;
         executeSkillCheck();
     }
+
+    public String getName() {
+        return "skill-tracker";
+    }
 }

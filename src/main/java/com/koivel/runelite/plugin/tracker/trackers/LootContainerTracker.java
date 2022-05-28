@@ -93,4 +93,8 @@ public class LootContainerTracker extends Tracker {
             trackEvent(kEvent);
         }
     }
+
+    public String getName() {
+        return "loot-tracker";
+    }
 }

@@ -140,4 +140,8 @@ public class ItemContainerTracker extends Tracker {
         private int containerId;
         private Map<Integer, Integer> itemCache;
     }
+
+    public String getName() {
+        return "account-value-tracker";
+    }
 }
